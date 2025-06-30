@@ -15,6 +15,7 @@ import UserManagement from '../components/UserManagement';
 import TopContributorsChart from '../components/TopContributorsChart';
 import PlantationMap from '../components/PlantationMap';
 import ExportCSVButton from '../components/ExportCSVButton';
+import AdminResourceManager from '../components/AdminResourceManager';
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
@@ -112,6 +113,10 @@ const AdminDashboard = () => {
       {/* User Management */}
       <div className="mb-10">
         <UserManagement />
+      </div>
+      {/*Admin Resource Manager*/}
+      <div className="mb-10">
+        <AdminResourceManager/>
       </div>
 
       {/* Map & Export */}

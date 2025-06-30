@@ -19,7 +19,7 @@ import DashboardLayout from './layouts/DashboardLayout';
 import PublicLayout from './layouts/PublicLayout';
 import ProfilePage from './pages/ProfilePage'; 
 import UserManagement from './components/UserManagement';
-
+import EducationHub from './pages/EducationHub';
 
 const App = () => {
   return (
@@ -30,7 +30,7 @@ const App = () => {
   <Route path="/login" element={<PublicLayout><Login /></PublicLayout>} />
   <Route path="/register" element={<PublicLayout><Register /></PublicLayout>} />
   <Route path="/about" element={<PublicLayout><About /></PublicLayout>} />
-
+  <Route path="/education" element={<PublicLayout><EducationHub /></PublicLayout>} />  
 
         {/* Dashboard Routes (Protected + Layout) */}
         <Route

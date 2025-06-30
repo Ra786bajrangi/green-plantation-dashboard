@@ -39,9 +39,11 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-6 text-gray-800 font-medium">
           {!isAuthenticated && (
             <>
-              <Link to="/">About</Link>
+              <Link to="/about">About</Link>
               <Link to="/login">Login</Link>
               <Link to="/register">Register</Link>
+              <Link to="/education">Education Hub</Link>
+
             </>
           )}
 

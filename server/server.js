@@ -6,6 +6,7 @@ import authRoute from './routes/authRoute.js';
 import plantationRoutes from'./routes/plantationRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import adminRoute from './routes/adminRoute.js'; 
+import resourceRoute from './routes/resourceRoute.js';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use('/api/users', userRoutes);
 
 app.use('/api/plantations', plantationRoutes);
 app.use('/api/admin', adminRoute); 
+app.use('/api/resources', resourceRoute);
 
 const PORT = process.env.PORT || 5000;
 
