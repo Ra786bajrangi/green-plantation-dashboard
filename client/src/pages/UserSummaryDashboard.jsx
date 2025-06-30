@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import CertificateGenerator from '../components/CertificateGenerator';
 import { motion } from 'framer-motion';
 import {
   FaTree,
@@ -137,6 +138,10 @@ const UserSummaryDashboard = () => {
                   <FaCalendarAlt className="text-green-500" />
                   <strong>Date:</strong> {new Date(p.date).toLocaleDateString()}
                 </p>
+                {/* 🌿 Certificate Generator Component */}
+    <div className="mt-4">
+      <CertificateGenerator user={summary} plantation={p} />
+    </div>
               </li>
             ))}
           </ul>
