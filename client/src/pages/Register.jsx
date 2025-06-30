@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+import { FaUserPlus } from 'react-icons/fa';
 
 const Register = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-   role: 'user'
-
+    role: 'user',
   });
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,47 +29,59 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-green-100">
-      <form
+    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-300 via-blue-200 to-green-200">
+      <motion.form
         onSubmit={handleRegister}
-        className="bg-white p-8 rounded-lg shadow-md w-80"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 80 }}
+        className="backdrop-blur-md bg-white/30 shadow-2xl rounded-xl p-8 w-80 border border-white/20"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
+        <div className="flex justify-center mb-4 text-white">
+          <FaUserPlus size={40} className="drop-shadow-lg" />
+        </div>
+        <h2 className="text-3xl font-bold text-center mb-6 text-white drop-shadow-lg">
+          Create Account
+        </h2>
+
         <input
           name="username"
           placeholder="Username"
-          className="w-full mb-3 p-2 border rounded"
+          className="w-full mb-4 p-3 rounded-md border border-white/30 bg-white/20 placeholder-white text-white focus:outline-none focus:ring-2 focus:ring-white transition"
           onChange={handleChange}
         />
         <input
           name="email"
           placeholder="Email"
-          className="w-full mb-3 p-2 border rounded"
+          className="w-full mb-4 p-3 rounded-md border border-white/30 bg-white/20 placeholder-white text-white focus:outline-none focus:ring-2 focus:ring-white transition"
           onChange={handleChange}
         />
         <input
           name="password"
           type="password"
           placeholder="Password"
-          className="w-full mb-3 p-2 border rounded"
+          className="w-full mb-4 p-3 rounded-md border border-white/30 bg-white/20 placeholder-white text-white focus:outline-none focus:ring-2 focus:ring-white transition"
           onChange={handleChange}
         />
-        
-              <label className="block text-white mb-1">Role</label>
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded bg-white bg-opacity-80 focus:outline-none"
-              >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
-            
-        <button className="w-full bg-green-600 text-white p-2 rounded">
+
+        <select
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+          className="w-full mb-6 p-3 rounded-md border border-white/30 bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-white transition"
+        >
+          <option value="user" className="text-black">User</option>
+          <option value="admin" className="text-black">Admin</option>
+        </select>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="w-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold py-2 rounded-lg shadow-md hover:from-green-600 hover:to-blue-600 transition"
+        >
           Register
-        </button>
-      </form>
+        </motion.button>
+      </motion.form>
     </div>
   );
 };
