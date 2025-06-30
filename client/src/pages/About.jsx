@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Leaf, TreePalm, Globe2, Users, Star, Activity } from 'lucide-react';
-import image3 from '../assets/image3.jpg'; 
+import image3 from '../assets/image3.jpg';
 
 const Counter = ({ target }) => {
   const [count, setCount] = useState(0);
@@ -27,9 +27,34 @@ const Counter = ({ target }) => {
 };
 
 const About = () => {
-    
+  const missionRef = useRef(null);
+  const visionRef = useRef(null);
+  const impactRef = useRef(null);
 
+  const scrollToSection = (ref) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
+  const cards = [
+    {
+      icon: Leaf,
+      title: "Our Mission",
+      text: "Empowering people to actively plant and track trees globally.",
+      ref: missionRef,
+    },
+    {
+      icon: TreePalm,
+      title: "Our Vision",
+      text: "Create a digital green ecosystem that spans across continents.",
+      ref: visionRef,
+    },
+    {
+      icon: Globe2,
+      title: "Our Impact",
+      text: "Thousands of plantations tracked, countless lives touched.",
+      ref: impactRef,
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-100 to-green-200 dark:from-gray-900 dark:to-gray-800 text-center p-6">
@@ -48,37 +73,60 @@ const About = () => {
         </p>
       </motion.div>
 
-      {/* Mission, Vision, Impact */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        {[{
-          icon: Leaf,
-          title: "Our Mission",
-          text: "Empowering people to actively plant and track trees globally.",
-        }, {
-          icon: TreePalm,
-          title: "Our Vision",
-          text: "Create a digital green ecosystem that spans across continents.",
-        }, {
-          icon: Globe2,
-          title: "Our Impact",
-          text: "Thousands of plantations tracked, countless lives touched.",
-        }].map((card, i) => (
+      {/* Mission, Vision, Impact Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {cards.map((card, i) => (
           <motion.div
             key={i}
-            whileHover={{ y: -5 }}
-            className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-md border border-green-200 text-center"
+            whileHover={{ y: -5, scale: 1.03 }}
+            onClick={() => scrollToSection(card.ref)}
+            className="cursor-pointer bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg border border-green-200 text-center hover:ring-4 hover:ring-green-300 transition-all duration-300"
           >
-            <div className="flex justify-center mb-4">
-              <card.icon className="h-10 w-10 text-green-500" />
+            <div className="relative flex justify-center mb-4">
+              <div className="absolute w-16 h-16 bg-green-100 rounded-full blur-xl opacity-60" />
+              <card.icon className="h-10 w-10 text-green-600 z-10" />
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-green-700 dark:text-green-200">{card.title}</h3>
+            <h3 className="text-xl font-bold mb-2 text-green-800 dark:text-green-200">
+              {card.title} 🌿
+            </h3>
             <p className="text-gray-600 dark:text-gray-400">{card.text}</p>
+            <p className="text-sm mt-2 text-green-500">Read More →</p>
           </motion.div>
         ))}
       </div>
 
+      {/* Detailed Sections */}
+      <div className="mt-24 space-y-20 px-4 max-w-4xl mx-auto text-left">
+        <div ref={missionRef} className="scroll-mt-20">
+          <h2 className="text-3xl font-bold text-green-700 dark:text-green-200 mb-3">🌱 Our Mission</h2>
+          <p className="text-lg text-gray-700 dark:text-gray-300">
+            We believe in empowering communities by encouraging sustainable planting.
+            Our mission is to enable users globally to plant, record, and track tree
+            plantations using real-time data, maps, and analytics.
+          </p>
+        </div>
+
+        <div ref={visionRef} className="scroll-mt-20">
+          <h2 className="text-3xl font-bold text-green-700 dark:text-green-200 mb-3">🌍 Our Vision</h2>
+          <p className="text-lg text-gray-700 dark:text-gray-300">
+            Our vision is to create a digital green ecosystem — connecting every region
+            under a unified platform to combat climate change, promote afforestation,
+            and inspire environmental stewardship across borders.
+          </p>
+        </div>
+
+        <div ref={impactRef} className="scroll-mt-20">
+          <h2 className="text-3xl font-bold text-green-700 dark:text-green-200 mb-3">💚 Our Impact</h2>
+          <p className="text-lg text-gray-700 dark:text-gray-300">
+            Over the last year, we’ve tracked thousands of plantations globally.
+            Each sapling planted means cleaner air, better climate, and stronger biodiversity.
+            Our users have touched lives and landscapes through dedicated action.
+          </p>
+        </div>
+      </div>
+
       {/* Counters */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-20 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-24 max-w-5xl mx-auto">
         {[{
           icon: TreePalm,
           label: 'Trees Planted',
@@ -110,48 +158,30 @@ const About = () => {
       {/* Team Section */}
       <div className="mt-20 max-w-6xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-green-700 dark:text-green-300 mb-8">Meet Our Eco-Heroes 💚</h2>
-      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
-  {[
-    {
-      name: 'Rakesh',
-      role: 'Founder',
-      img:image3,
-    },
-        
-    
-    {
-      name: 'Aryan',
-      role: 'Growth Lead',
-      img: 'https://i.pravatar.cc/150?u=2',
-    },
-    {
-      name: 'sneha',
-      role: 'Designer',
-      img: 'https://i.pravatar.cc/150?u=3',
-    },
-    {
-      name: 'Zoya',
-      role: 'Dev Ops',
-      img: 'https://i.pravatar.cc/150?u=4',
-    },
-  ].map((member, i) => (
-    <motion.div
-      key={i}
-      whileHover={{ scale: 1.05 }}
-      className="bg-white dark:bg-gray-900 p-4 rounded-2xl shadow-md text-center"
-    >
-      <img
-        src={member.img}
-        alt={member.name}
-        className="w-24 h-24 mx-auto rounded-full object-cover mb-4 border-2 border-green-600"
-      />
-      <h3 className="text-lg font-bold text-green-800 dark:text-green-200">{member.name}</h3>
-      <p className="text-gray-600 dark:text-gray-400">{member.role}</p>
-    </motion.div>
-  ))}
-</div>
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { name: 'Rakesh', role: 'Founder', img: image3 },
+            { name: 'Aryan', role: 'Growth Lead', img: 'https://i.pravatar.cc/150?u=2' },
+            { name: 'Sneha', role: 'Designer', img: 'https://i.pravatar.cc/150?u=3' },
+            { name: 'Zoya', role: 'Dev Ops', img: 'https://i.pravatar.cc/150?u=4' },
+          ].map((member, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.05 }}
+              className="bg-white dark:bg-gray-900 p-4 rounded-2xl shadow-md text-center"
+            >
+              <img
+                src={member.img}
+                alt={member.name}
+                className="w-24 h-24 mx-auto rounded-full object-cover mb-4 border-2 border-green-600"
+              />
+              <h3 className="text-lg font-bold text-green-800 dark:text-green-200">{member.name}</h3>
+              <p className="text-gray-600 dark:text-gray-400">{member.role}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
 
-</div>
       {/* Quote */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
