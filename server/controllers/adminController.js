@@ -88,3 +88,24 @@ export const deleteUserById = async (req, res) => {
     res.status(500).json({ message: 'Failed to delete user' });
   }
 };
+// Admin sets goal for a specific user
+export const setUserGoalByAdmin = async (req, res) => {
+  const { userId, goal } = req.body;
+
+  if (!userId || typeof goal !== 'number') {
+    return res.status(400).json({ message: 'User ID and goal are required' });
+  }
+
+  try {
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { goal },
+      { new: true }
+    );
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    res.status(200).json({ message: 'Goal updated', goal: user.goal });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};

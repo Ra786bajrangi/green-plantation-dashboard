@@ -37,3 +37,30 @@ export const updateProfile = async (req, res) => {
 
   res.json(updated);
 };
+export const getUserGoalSummary = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const user = await User.findById(userId).select('goal username email avatar');
+    const plantations = await Plantation.find({ user: userId });
+
+    const totalTrees = plantations.reduce((sum, p) => sum + p.numberOfTrees, 0);
+
+    let badge = 'Green Starter';
+    if (totalTrees >= 100) badge = 'Gold';
+    else if (totalTrees >= 50) badge = 'Silver';
+    else if (totalTrees >= 20) badge = 'Bronze';
+
+    res.json({
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar,
+      goal: user.goal,
+      totalTrees,
+      badge,
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Goal summary fetch failed', error: err.message });
+  }
+};
+

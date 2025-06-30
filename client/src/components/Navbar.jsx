@@ -52,7 +52,7 @@ const Navbar = () => {
               <Link to="/dashboard">Dashboard</Link>
               <Link to="/dashboard/plant">Plant Tree</Link>
               <Link to="/dashboard/leaderboard">Leaderboard</Link>
-              <Link to="/profile">Profile</Link>
+              <Link to="/dashboard/profile">Profile</Link>
               <Link to="/dashboard/my-plantations">My Plantations</Link>
               <Link to="/dashboard/plantation-map">Plantation Map</Link>
               <button onClick={handleLogout} className="text-green-700 hover:underline">Logout</button>

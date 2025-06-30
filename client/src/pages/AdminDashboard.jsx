@@ -16,6 +16,7 @@ import TopContributorsChart from '../components/TopContributorsChart';
 import PlantationMap from '../components/PlantationMap';
 import ExportCSVButton from '../components/ExportCSVButton';
 import AdminResourceManager from '../components/AdminResourceManager';
+import AdminSetUserGoal from '../components/AdminSetUserGoal';
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
@@ -123,6 +124,11 @@ const AdminDashboard = () => {
       <div className="mb-10">
         <PlantationMap plantations={data.recentPlantations} />
         <ExportCSVButton data={data.recentPlantations} />
+      </div>
+      {/*goal set by user*/}
+      <div className="mb-10">
+        <AdminSetUserGoal />
+
       </div>
 
       {/* Recent Plantations */}

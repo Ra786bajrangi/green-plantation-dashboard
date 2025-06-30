@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CertificateGenerator from '../components/CertificateGenerator';
+import GoalProgressChart from '../components/GoalProgressChart';
+import BadgeDisplay from '../components/BadgeDisplay';
 import { motion } from 'framer-motion';
 import {
   FaTree,
@@ -13,8 +15,10 @@ import {
 
 const UserSummaryDashboard = () => {
   const [summary, setSummary] = useState(null);
+  const [goalData, setGoalData] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Fetch user summary
   useEffect(() => {
     const fetchSummary = async () => {
       const token = localStorage.getItem('token');
@@ -25,14 +29,29 @@ const UserSummaryDashboard = () => {
           },
         });
         setSummary(res.data);
-        setLoading(false);
       } catch (err) {
         console.error('Error fetching user summary:', err);
+      }
+    };
+
+    const fetchGoalSummary = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const res = await axios.get('http://localhost:5000/api/users/goal-summary', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setGoalData(res.data);
+      } catch (err) {
+        console.error('Error fetching goal summary:', err);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchSummary();
+    fetchGoalSummary();
   }, []);
 
   if (loading)
@@ -42,10 +61,10 @@ const UserSummaryDashboard = () => {
       </div>
     );
 
-  if (!summary)
+  if (!summary || !goalData)
     return (
       <div className="p-6 text-center text-red-500 font-semibold">
-        Failed to load summary.
+        Failed to load summary or goal data.
       </div>
     );
 
@@ -107,11 +126,17 @@ const UserSummaryDashboard = () => {
         </motion.div>
       </div>
 
+      {/* Goal & Badge */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+        <GoalProgressChart goal={goalData.goal} currentTrees={goalData.totalTrees} />
+        <BadgeDisplay totalTrees={goalData.totalTrees} />
+      </div>
+
       {/* Recent Plantations */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/70 backdrop-blur-md p-6 rounded-lg shadow-lg"
+        className="bg-white/70 backdrop-blur-md p-6 rounded-lg shadow-lg mt-10"
       >
         <h2 className="text-xl font-semibold mb-4 text-green-800 flex items-center gap-2">
           <FaTree /> Recent Plantation Entries
@@ -138,10 +163,9 @@ const UserSummaryDashboard = () => {
                   <FaCalendarAlt className="text-green-500" />
                   <strong>Date:</strong> {new Date(p.date).toLocaleDateString()}
                 </p>
-                {/* 🌿 Certificate Generator Component */}
-    <div className="mt-4">
-      <CertificateGenerator user={summary} plantation={p} />
-    </div>
+                <div className="mt-4">
+                  <CertificateGenerator user={summary} plantation={p} />
+                </div>
               </li>
             ))}
           </ul>
