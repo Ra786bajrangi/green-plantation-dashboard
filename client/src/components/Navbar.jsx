@@ -62,6 +62,8 @@ const Navbar = () => {
           {isAuthenticated && role === 'admin' && (
             <>
               <Link to="/admin">Dashboard</Link>
+              <Link to="/dashboard/plant">Plant Tree</Link>
+              <Link to="/dashboard/profile">Profile</Link>
               <Link to="/admin/users">User Management</Link>
               <Link to="/dashboard/leaderboard">Leaderboard</Link>
               <button onClick={handleLogout} className="text-green-700 hover:underline">Logout</button>

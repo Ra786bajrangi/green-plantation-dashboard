@@ -47,8 +47,20 @@ export const getAllPlantations = async (req, res) => {
   }
 };
 export const getLeaderboard = async (req, res) => {
+  const { period } = req.query; // e.g., ?period=monthly
+
+  let match = {}; // Optional filter for date range
+
+  if (period === 'monthly') {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), now.getMonth(), 1); // 1st of current month
+    const end = new Date(now.getFullYear(), now.getMonth() + 1, 0); // end of current month
+    match.date = { $gte: start, $lte: end };
+  }
+
   try {
     const data = await Plantation.aggregate([
+      { $match: match }, // Apply if `period` is 'monthly'
       {
         $group: {
           _id: "$user",
@@ -69,6 +81,7 @@ export const getLeaderboard = async (req, res) => {
       {
         $project: {
           username: "$user.username",
+          photo: "$user.photo",
           totalTrees: 1,
         },
       },
@@ -76,6 +89,8 @@ export const getLeaderboard = async (req, res) => {
 
     res.json(data);
   } catch (err) {
+    console.error("Leaderboard error:", err);
     res.status(500).json({ message: "Failed to fetch leaderboard" });
   }
 };
+
