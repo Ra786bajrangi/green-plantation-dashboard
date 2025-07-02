@@ -81,7 +81,7 @@ export const getLeaderboard = async (req, res) => {
       {
         $project: {
           username: "$user.username",
-          photo: "$user.photo",
+          avatar: "$user.avatar",
           totalTrees: 1,
         },
       },

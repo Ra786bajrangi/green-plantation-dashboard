@@ -20,6 +20,7 @@ export const getAdminDashboardSummary = async (req, res) => {
       if (treeCount > 0) {
         leaderboard.push({
           username: user.username,
+          avatar: user.avatar,
           totalTrees: treeCount,
         });
       }
@@ -47,7 +48,7 @@ export const getAdminDashboardSummary = async (req, res) => {
 // Get All Users (excluding admins)
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({ role: 'user' });
+    const users = await User.find({ role: 'user' }).select('username email avatar isActive plantations role');
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch users' });

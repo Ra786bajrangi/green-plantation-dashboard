@@ -100,7 +100,8 @@ const UserManagement = () => {
           <table className="min-w-full text-sm">
             <thead className="bg-green-600 text-white">
               <tr>
-                <th className="py-3 px-6 text-left">Username</th>
+                <th className="py-3 px-6">Avatar</th>
+                 <th className="py-3 px-6 text-left">Username</th>
                 <th className="py-3 px-6 text-left">Email</th>
                 <th className="py-3 px-6">Plantations</th>
                 <th className="py-3 px-6">Status</th>
@@ -115,6 +116,12 @@ const UserManagement = () => {
                     key={user._id}
                     className="border-b hover:bg-green-50 transition-all"
                   >
+                    <td className="px-6 py-3">
+          <img
+            src={user.avatar || `https://i.pravatar.cc/150?u=${user.email}`}
+            alt="avatar"
+            className="w-10 h-10 rounded-full object-cover border"
+          /></td>
                     <td className="px-6 py-3">{user.username}</td>
                     <td className="px-6 py-3">{user.email}</td>
                     <td className="px-6 py-3 text-center">{user.plantations}</td>
