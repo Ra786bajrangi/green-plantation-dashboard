@@ -7,7 +7,7 @@ const EducationHub = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/resources');
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/resources`);
         setResources(res.data);
       } catch (err) {
         console.error('Failed to fetch resources', err);

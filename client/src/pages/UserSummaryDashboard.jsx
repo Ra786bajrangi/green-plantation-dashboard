@@ -23,7 +23,7 @@ const UserSummaryDashboard = () => {
     const fetchSummary = async () => {
       const token = localStorage.getItem('token');
       try {
-        const res = await axios.get('http://localhost:5000/api/users/summary', {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/summary`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -37,7 +37,7 @@ const UserSummaryDashboard = () => {
     const fetchGoalSummary = async () => {
       const token = localStorage.getItem('token');
       try {
-        const res = await axios.get('http://localhost:5000/api/users/goal-summary', {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/goal-summary`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

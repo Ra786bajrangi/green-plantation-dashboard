@@ -9,7 +9,7 @@ const Leaderboard = () => {
   const fetchLeaderboard = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/plantations/leaderboard${
+        `${import.meta.env.VITE_API_URL}/api/plantations/leaderboard${
           period === "monthly" ? "?period=monthly" : ""
         }`
       );

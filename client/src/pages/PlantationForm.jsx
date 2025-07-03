@@ -18,7 +18,7 @@ const PlantationForm = () => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     try {
-      await axios.post('http://localhost:5000/api/plantations', {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/plantations`, {
         ...formData,
         coordinates: {
           lat: parseFloat(formData.lat),

@@ -10,7 +10,7 @@ const AdminSetUserGoal = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/admin/users', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/admin/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(res.data);
@@ -24,7 +24,7 @@ const AdminSetUserGoal = () => {
 
     try {
       const res = await axios.post(
-        'http://localhost:5000/api/admin/set-user-goal',
+        `${import.meta.env.VITE_API_URL}/api/admin/set-user-goal`,
         { userId: selectedUser, goal: parseInt(goal) },
         { headers: { Authorization: `Bearer ${token}` } }
       );

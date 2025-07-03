@@ -15,7 +15,7 @@ const AdminResourceManager = () => {
 
   const fetchResources = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/resources');
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/resources`);
       setResources(res.data);
     } catch (err) {
       console.error('Error fetching resources:', err);
@@ -34,7 +34,7 @@ const AdminResourceManager = () => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     try {
-      await axios.post('http://localhost:5000/api/resources', formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/resources`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFormData({ title: '', type: 'article', description: '', link: '', embedUrl: '' });
@@ -47,7 +47,7 @@ const AdminResourceManager = () => {
   const handleDelete = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.delete(`http://localhost:5000/api/resources/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/resources/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setResources((prev) => prev.filter((r) => r._id !== id));
